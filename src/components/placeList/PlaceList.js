@@ -1,21 +1,24 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import ListItem from '../Listitems/Listitem';
 
 
 
 const PlaceList = (props) => {
-    const placeOutput = props.places.map((place, i) => (
-        <ListItem
-            key={i}
-            placeName={place}
-            onItemPressed={() => alert("Ïtem pressed -ID:" + i)}
-        />
-    ))
+
     return (
-        < View style={styles.listContainer} >
-            {placeOutput}
-        </View >
+        <FlatList
+            style={styles.listContainer}
+            data={props.places}
+            renderItem={(info) => (
+                <ListItem
+                    placeName={info.item.name}
+                    placeImage={info.item.image}
+                    onItemPressed={() => props.onItemSelected(info.item.key)}
+                />
+
+            )}
+        />
     )
 }
 
